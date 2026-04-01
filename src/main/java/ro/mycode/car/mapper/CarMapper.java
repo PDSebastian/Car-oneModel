@@ -5,9 +5,9 @@ import ro.mycode.car.dtos.CarRequest;
 import ro.mycode.car.dtos.CarResponse;
 import ro.mycode.car.model.Car;
 
-@Component
+
 public class CarMapper {
-    public Car toEntity(CarRequest req) {
+    public static Car toEntity(CarRequest req) {
         if(req == null){
             return null;
         }
@@ -18,11 +18,11 @@ public class CarMapper {
                 .color(req.getColor())
                 .build();
     }
-    public CarResponse toDto(Car car) {
+    public static CarResponse toDto(Car car) {
         return new CarResponse(
                  car.getId(),
-                car.getMarca(),
                 car.getModel(),
+                car.getMarca(),
                 car.getColor(),
                 car.getYear()
         );

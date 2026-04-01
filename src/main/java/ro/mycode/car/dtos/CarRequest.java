@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CarRequest {
+    Long carId;
     @NotBlank(message = "modelul este obligatoriu")
     @Size(min=1 , max=50)
     private String model;

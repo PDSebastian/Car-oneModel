@@ -1,5 +1,7 @@
 package ro.mycode.car.repository;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,8 +22,8 @@ public interface CarRepository extends JpaRepository<Car,Long> {
     Optional<Car> findByColor(@Param("color") Integer color);
 
 
+    Optional<Car> findFirstByModel( String model);
+    Optional<Car>findById(Long id);
 
-
-
-
+    boolean getCarByYear(int year);
 }

@@ -1,4 +1,4 @@
-package ro.mycode.car.service.queryService;
+package ro.mycode.car.service;
 
 import ro.mycode.car.dtos.CarResponse;
 

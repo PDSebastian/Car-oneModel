@@ -8,8 +8,8 @@ import ro.mycode.car.dtos.CarRequest;
 import ro.mycode.car.dtos.CarResponse;
 import ro.mycode.car.mapper.CarMapper;
 import ro.mycode.car.repository.CarRepository;
-import ro.mycode.car.service.commandService.CarCommandService;
-import ro.mycode.car.service.queryService.CarQueryService;
+import ro.mycode.car.service.CarCommandService;
+import ro.mycode.car.service.CarQueryService;
 
 import java.util.List;
 
@@ -19,10 +19,9 @@ public class CarController {
 
     private CarQueryService carQueryService;
     private CarCommandService carCommandService;
-    public CarController(CarQueryService carQueryService, CarCommandService carCommandService, CarRepository carRepository, CarMapper carMapper) {
+    public CarController(CarQueryService carQueryService, CarCommandService carCommandService) {
         this.carQueryService = carQueryService;
         this.carCommandService = carCommandService;
-        getAllCars();
 
     }
 
@@ -37,22 +36,17 @@ public class CarController {
       CarResponse carResponse=  carCommandService.addCar(carRequest);
         return ResponseEntity.status(HttpStatus.OK).body(carResponse);
 
-
     }
-    @DeleteMapping("/delete/id")
+    @DeleteMapping("/delete/{id}")
       ResponseEntity<Void> deleteCar(@PathVariable long id ){
       carCommandService.deleteCar(Long.parseLong(id+""));
       return ResponseEntity.status(HttpStatus.OK).body(null);
 
     }
-    @PutMapping("/update/id")
+    @PutMapping("/update/{id}")
     ResponseEntity<CarResponse> updateCar(@PathVariable long id , @Valid @RequestBody CarRequest carRequest){
         CarResponse c= carCommandService.updateCar(id, carRequest);
         return ResponseEntity.status(HttpStatus.OK).body(c);
 
     }
-
-
-
-
 }

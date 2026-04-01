@@ -32,6 +32,6 @@ public class Car {
     @Size(min=1,max=50)
     private String color;
 
-    @Positive(message ="1999")
+    @Positive(message =">1999")
     private int year;
 }
