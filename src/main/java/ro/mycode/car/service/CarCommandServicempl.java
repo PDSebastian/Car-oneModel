@@ -38,7 +38,6 @@ public class   CarCommandServicempl implements CarCommandService {
         if(carRequest.getYear()<1999){
             throw new InvalidYearException();
         }
-
         Car car = carRepository.findById(carId)
                 .orElseThrow(CarNotFoundException::new);
         car.setMarca(carRequest.getMarca());
@@ -52,9 +51,8 @@ public class   CarCommandServicempl implements CarCommandService {
     @Override
     @Transactional
     public void deleteCar(Long carId) {
-        Car car=carRepository.findById(carId).orElseThrow(CarNotFoundException::new);
+        carRepository.findById(carId).orElseThrow(CarNotFoundException::new);
         carRepository.deleteById(carId);
-
     }
 
 }

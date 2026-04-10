@@ -89,7 +89,6 @@ public class CommandServiceImplTest {
                .build();
        when(carRepository.findFirstByModel(carRequest.getModel())).thenReturn(Optional.empty());
        when(carRepository.save(car)).thenReturn(savedCar);
-
        CarResponse result=carCommandService.addCar(carRequest);
        assertEquals(result,expectedResponse);
 
@@ -101,29 +100,20 @@ public class CommandServiceImplTest {
                .model("Logan")
                .color("rosu")
                .year(2006)
-               .carId(1L)
                .build();
 
-       when(carRepository.findById(carRequest.getCarId())).thenReturn(Optional.empty());
+       when(carRepository.findById(1l)).thenReturn(Optional.empty());
 
        assertThrows(CarNotFoundException.class, () -> {
-           carCommandService.updateCar(carRequest.getCarId(), carRequest);
+           carCommandService.updateCar(1L, carRequest);
        });
 
    }
    @Test
     void deleteWhenCarNotFound() {
-       CarRequest carRequest = CarRequest.builder()
-               .carId(2L)
-               .model("Duster")
-               .marca("Dacia")
-               .color("portocaliu")
-               .year(2021)
-               .build();
-
-       when(carRepository.findById(carRequest.getCarId())).thenReturn(Optional.empty());
+       when(carRepository.findById(1l)).thenReturn(Optional.empty());
        assertThrows(CarNotFoundException.class, () -> {
-           carCommandService.deleteCar(carRequest.getCarId());
+           carCommandService.deleteCar(1l);
 
        });
 
@@ -135,7 +125,7 @@ public class CommandServiceImplTest {
                .build();
 
        assertThrows(InvalidYearException.class, () -> {
-           carCommandService.updateCar(carRequest.getCarId(), carRequest);
+           carCommandService.updateCar(1L, carRequest);
        });
 
    }
@@ -175,12 +165,25 @@ public class CommandServiceImplTest {
                .year(2021)
                .build();
 
-       Car updatedCar=Car.builder().model("Toyota" ).color("rosu").year(2009).build();
-       when(carRepository.findById(carRequest.getCarId())).thenReturn(Optional.of(updatedCar));
-      carCommandService.updateCar(carRequest.getCarId(), carRequest);
-      assertThrows(CarNotFoundException.class, () -> {
-          carCommandService.deleteCar(carRequest.getCarId());
-      });
+       Car carfromDb= Car.builder()
+               .model("Logan")
+               .marca("dacia")
+               .color("verde")
+               .year(2020)
+               .id(7L)
+               .build();
+
+       CarResponse expectedResult= CarResponse.builder().id(7L).model("Audi")
+               .marca("a4")
+               .color("Rosu")
+               .year(2021)
+               .build();
+       when(carRepository.findById(7L)).thenReturn(Optional.of(carfromDb));
+       when(carRepository.save(carfromDb)).thenReturn(carfromDb);
+       CarResponse actualResult= carCommandService.updateCar(7L, carRequest);
+       assertEquals(expectedResult,actualResult);
+
+
 
 
     }
