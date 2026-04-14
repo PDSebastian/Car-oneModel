@@ -10,11 +10,9 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import ro.mycode.car.dtos.CarRequest;
 import ro.mycode.car.dtos.CarResponse;
-import ro.mycode.car.model.Car;
 import ro.mycode.car.service.CarCommandService;
 import ro.mycode.car.service.CarQueryService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -131,5 +129,6 @@ public class CarControllerTest {
                 .andExpect(jsonPath("$.marca").value("BMW"))
                 .andExpect(jsonPath("$.model").value("X5"));
     }
+
 
 }
