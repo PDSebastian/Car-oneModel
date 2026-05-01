@@ -9,20 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import ro.mycode.car.controller.CarController;
 import ro.mycode.car.dtos.CarRequest;
-import ro.mycode.car.dtos.CarResponse;
 import ro.mycode.car.model.Car;
 import ro.mycode.car.repository.CarRepository;
-import ro.mycode.car.service.CarQueryService;
 
-import java.util.List;
-
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.web.servlet.function.RequestPredicates.contentType;
 
 @SpringBootTest
 @AutoConfigureMockMvc

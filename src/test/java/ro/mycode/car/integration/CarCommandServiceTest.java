@@ -31,8 +31,7 @@ public class CarCommandServiceTest {
 
     @Autowired
     CarRepository carRepository;
-    @Autowired
-    private ParameterObjectNamingStrategyCustomizer parameterObjectNamingStrategyCustomizer;
+
 
     @Test
     @Transactional

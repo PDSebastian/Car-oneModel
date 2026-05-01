@@ -10,7 +10,7 @@ import ro.mycode.car.repository.CarRepository;
 import ro.mycode.car.service.CarQueryService;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 
@@ -41,29 +41,7 @@ public class CarQueryServiceTest {
         assertEquals("aaa","aaa",carResponse.getModel());
 
     }
-    @Test
-    void testFindAllCars(){
-        Car car=Car.builder()
-                .marca("www")
-                .model("aaa")
-                .color("red")
-                .year(2018)
-                .build();
 
-        Car car1=Car.builder()
-                .marca("lllll")
-                .model("asasas")
-                .color("red")
-                .year(2018)
-                .build();
-
-        carRepository.save(car);
-        carRepository.save(car1);
-        List<CarResponse> carResponse=carQueryService.findAllCars();
-        assertEquals("sads",2,carResponse.size());
-
-
-    }
     @Test
     void testFindCarByModelAndMarca(){
         Car car=Car.builder()

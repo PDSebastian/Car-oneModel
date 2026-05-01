@@ -1,4 +1,4 @@
-package ro.mycode.car.services;
+package ro.mycode.car.unitTests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -42,7 +42,7 @@ public class CommandServiceImplTest {
 
 
    @Test
-   void createThrowsWhenModelDuplicate(){//PRECONDITIE ACTIUNE REZULTAT
+   void createThrowsWhenModelDuplicate(){
        CarRequest carRequest = CarRequest.builder()
                .model("Audi")
                .marca("a6")
@@ -135,27 +135,6 @@ public class CommandServiceImplTest {
        carCommandService.deleteCar(3L);
 
    }
-//   @Test
-//   void updateWhenModelIsValid(){
-//       CarRequest carRequest=CarRequest
-//               .builder()
-//               .marca("Dacia")
-//               .model("1300")
-//               .color("verde")
-//               .year(2009)
-//               .carId(5L)
-//               .build();
-//       Car updatedCar=Car.builder().model( ).color("rosu").year(2009).build();
-//
-//
-//       when(carRepository.findById(carRequest.getCarId())).thenReturn(Optional.of(updatedCar));
-//
-//       assertThrows(InvalidModelException.class, () -> {
-//           carCommandService.updateCar(carRequest.getCarId(), carRequest);
-//       });
-//
-//
-//   }
    @Test
     void testUpdateCar(){
        CarRequest carRequest=CarRequest.builder()
