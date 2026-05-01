@@ -9,6 +9,5 @@ import java.util.Optional;
 public interface CarQueryService {
     List<CarResponse> findAllCars();
     CarResponse getCarById(Long id);
-    Optional<CarResponse> findById(Long id);
-    List<CarResponse> findByModelandMarca(String model,String marca);
+    CarResponse findByModelandMarca(String model,String marca);
 }

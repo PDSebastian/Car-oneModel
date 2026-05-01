@@ -153,6 +153,60 @@ public class CarCommandServiceTest {
             carCommandService.updateCar(carId, carRequest);
         });
     }
+    @Test
+    @Transactional
+    public void testUpdatePatchCarReturnsOk() throws Exception {
+        String marca="www";
+        String model="aaa";
+        String color="red";
+        int year=2018;
+
+        Car car=Car.builder()
+                .model(model)
+                .marca(marca)
+                .color(color)
+                .year(year)
+                .build();
+
+         carRepository.save(car);
+        CarRequest carRequest=CarRequest.builder()
+                .model(model)
+                .marca(marca)
+                .color(color)
+                .year(year)
+                .build();
+        CarResponse carResponse=carCommandService.updatePatchCar(car.getId(), carRequest);
+        assertEquals("dwdw","www",carResponse.getMarca());
+        assertEquals("dwdw","aaa",carResponse.getModel());
+        assertEquals("dwdw","red",carResponse.getColor());
+        assertEquals("dwdw",year,carResponse.getYear());
+
+
+    }
+    @Test
+    @Transactional
+    public void testUpdatePatchCarReturnsInvalidYearException() throws Exception {
+        String marca="www";
+        String model="aaa";
+        String color="red";
+        int year=1998;
+
+        Car car=Car.builder()
+                .marca("www")
+                .model("aaa")
+                .color("red")
+                .year(1997)
+                .build();
+        carRepository.save(car);
+        CarRequest carRequest=CarRequest.builder()
+                .marca("www")
+                .model("aaa")
+                .color("red")
+                .year(1997)
+                .build();
+
+        assertThrows(InvalidYearException.class, ()->{ carCommandService.updatePatchCar(car.getId(), carRequest);});
+    }
 
 
 

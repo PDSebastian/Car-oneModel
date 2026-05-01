@@ -30,13 +30,10 @@ public class CarQueryServiceImpl implements CarQueryService {
         return CarMapper.toDto(car);
     }
 
-    @Override
-    public Optional<CarResponse> findById(Long id) {
-        return carRepository.findById(id).map(CarMapper::toDto);
-    }
+
 
     @Override
-    public List<CarResponse> findByModelandMarca(String model, String marca) {
-        return carRepository.findByModelAndMarca(model, marca).stream().map(CarMapper::toDto).toList();
+    public CarResponse findByModelandMarca(String model, String marca) {
+        return carRepository.findByModelAndMarca(model, marca).stream().map(CarMapper::toDto).findFirst().orElse(null);
     }
 }

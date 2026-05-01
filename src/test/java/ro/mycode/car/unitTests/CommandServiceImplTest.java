@@ -166,14 +166,59 @@ public class CommandServiceImplTest {
 
 
     }
+    @Test
+    void testUpdatePatchCar(){
+       Long carId=1L;
+       String model="a4";
+       String marca="Audi";
+       String color="rosu";
+      Integer year=2021;
+
+      CarRequest carRequest=CarRequest.builder()
+              .model(model)
+              .marca(marca)
+              .color(color)
+              .year(year)
+              .build();
+
+      Car car=Car.builder()
+              .model(model)
+              .marca(marca)
+              .color(color)
+              .year(year)
+              .build();
+
+      CarResponse carResponse=CarResponse.builder()
+              .model(model)
+              .marca(marca)
+              .color(color)
+              .year(year)
+              .build();
+
+        when(carRepository.findById(carId)).thenReturn(Optional.of(car));
+        when(carRepository.save(car)).thenReturn(car);
+        CarResponse actualResult= carCommandService.updateCar(carId, carRequest);
+        assertEquals(carResponse,actualResult);
 
 
+    }
+    @Test
+    void testUpdatePatchCarThrowInvalidYear(){
+       Long carId=1L;
+        String model="a4";
+        String marca="Audi";
+        String color="rosu";
+        Integer year=1977;
+       CarRequest carRequest=CarRequest.builder()
+               .model(model)
+               .marca(marca)
+               .color(color)
+               .year(year)
+               .build();
 
+       assertThrows(InvalidYearException.class, () -> {carCommandService.updateCar(carId, carRequest);});
 
-
-
-
-
+    }
 
 
 

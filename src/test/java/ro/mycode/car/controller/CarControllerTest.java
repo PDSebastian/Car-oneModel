@@ -129,6 +129,34 @@ public class CarControllerTest {
                 .andExpect(jsonPath("$.marca").value("BMW"))
                 .andExpect(jsonPath("$.model").value("X5"));
     }
+    @Test
+    void updatePatchReturnsOkWithBody() throws Exception {
+        Long id = 5L;
+        CarResponse carResponse = CarResponse.builder()
+                .id(id)
+                .marca("BMW")
+                .model("X5")
+                .color("Negru")
+                .year(2022)
+                .build();
+
+        CarRequest carRequest = CarRequest.builder()
+                .marca("Audi")
+                .model("A4")
+                .color("Negru")
+                .year(2021)
+                .build();
+
+        when(carCommandService.updateCar(eq(id), any(CarRequest.class))).thenReturn(carResponse);
+        mockMvc.perform(patch("/api/v1/cars/patch/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(carRequest)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(5))
+                .andExpect(jsonPath("$.marca").value("BMW"));
+
+    }
+
 
 
 }

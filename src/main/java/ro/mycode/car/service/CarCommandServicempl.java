@@ -50,6 +50,19 @@ public class   CarCommandServicempl implements CarCommandService {
 
     @Override
     @Transactional
+    public CarResponse updatePatchCar(Long carId ,CarRequest carRequest) {
+       if(carRequest.getYear()<1999){
+           throw new InvalidYearException();
+       }
+        Car car=carRepository.findById(carId)
+                .orElseThrow(CarNotFoundException::new);
+       car.setMarca(carRequest.getMarca());
+       Car updatedCar = carRepository.save(car);
+       return CarMapper.toDto(updatedCar);
+    }
+
+    @Override
+    @Transactional
     public void deleteCar(Long carId) {
         carRepository.findById(carId).orElseThrow(CarNotFoundException::new);
         carRepository.deleteById(carId);

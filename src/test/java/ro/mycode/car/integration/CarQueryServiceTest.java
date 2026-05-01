@@ -9,7 +9,7 @@ import ro.mycode.car.model.Car;
 import ro.mycode.car.repository.CarRepository;
 import ro.mycode.car.service.CarQueryService;
 
-import java.util.List;
+
 
 
 import static org.springframework.test.util.AssertionErrors.assertEquals;
@@ -52,12 +52,12 @@ public class CarQueryServiceTest {
                 .build();
 
         Car savdCar= carRepository.save(car);
-        List<CarResponse> carResponse =carQueryService.
+        CarResponse carResponse =carQueryService.
                 findByModelandMarca(savdCar.getModel(),savdCar.getMarca());
 
 
-        assertEquals("dwdwdw","www",carResponse.get(0).getMarca());
-       assertEquals("aaa","aaa",carResponse.get(0).getModel());
+        assertEquals("dwdwdw","www",carResponse.getMarca()  );
+         assertEquals("aaa","aaa",carResponse.getModel());
 
 
     }

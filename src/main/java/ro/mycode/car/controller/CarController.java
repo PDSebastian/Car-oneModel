@@ -49,4 +49,9 @@ public class CarController {
         return ResponseEntity.status(HttpStatus.OK).body(c);
 
     }
+    @PatchMapping("/patch/{id}")
+    ResponseEntity<CarResponse>  patchCar(@PathVariable long id , @Valid @RequestBody CarRequest carRequest){
+        CarResponse carReponse=carCommandService.updateCar(id,carRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(carReponse);
+    }
 }
