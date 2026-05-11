@@ -6,8 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.mycode.car.dtos.CarRequest;
 import ro.mycode.car.dtos.CarResponse;
-import ro.mycode.car.mapper.CarMapper;
-import ro.mycode.car.repository.CarRepository;
 import ro.mycode.car.service.CarCommandService;
 import ro.mycode.car.service.CarQueryService;
 

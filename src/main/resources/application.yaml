@@ -16,3 +16,10 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+application:
+  jwt:
+    tokenPrefix: "Bearer"
+    tokenExpirationAfterDays: 7
+    secretKey: ${JWT_SECRET_KEY:asdasdasdasdasd123344asdasdasdasdasasd12321332sadasXYZ0123456789ABCDEF}
+
