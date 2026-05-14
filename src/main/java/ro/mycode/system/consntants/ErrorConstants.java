@@ -9,5 +9,6 @@ public class ErrorConstants {
 
     public static final String USER_ALREADY_EXISTS_ERROR_MESSAGE = "User Already Exists";
     public static final String USER_NOT_FOUND_ERROR_MESSAGE = "User Not Found";
+    public static final String EMAIL_ALREADY_USED_ERROR_MESSAGE = "Email Already Used Error";
 
 }

@@ -9,6 +9,7 @@ import ro.mycode.car.exceptions.CarNotFoundException;
 import ro.mycode.car.exceptions.InvalidModelException;
 import ro.mycode.car.exceptions.InvalidYearException;
 import ro.mycode.system.consntants.HintsConstants;
+import ro.mycode.user.exceptions.EmailAlreadyUsedException;
 import ro.mycode.user.exceptions.UserAlreadyExistsException;
 import ro.mycode.user.exceptions.UserNotFoundException;
 
@@ -101,6 +102,19 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
+                .body(apiErrorResponse);
+    }
+    @ExceptionHandler(EmailAlreadyUsedException.class)
+    public ResponseEntity<ApiErrorResponse> handleEmaiAlreadyUsedException(EmailAlreadyUsedException e){
+        ApiErrorResponse apiErrorResponse=ApiErrorResponse.builder()
+                .hint(HintsConstants.USER_NOT_FOUND_HINT_MESSAGE)
+                .message(e.getMessage())
+                .dateTime(LocalDateTime.now())
+                .status(HttpStatus.CONFLICT.value())
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
                 .body(apiErrorResponse);
     }
 

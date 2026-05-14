@@ -9,6 +9,7 @@ import ro.mycode.config.UserPermissions;
 import ro.mycode.config.security.JWTTokenProvider;
 import ro.mycode.user.dtos.UserRequest;
 import ro.mycode.user.dtos.UserResponse;
+import ro.mycode.user.exceptions.EmailAlreadyUsedException;
 import ro.mycode.user.exceptions.UserNotFoundException;
 import ro.mycode.user.mapper.UserMapper;
 import ro.mycode.user.model.User;
@@ -35,14 +36,14 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserResponse register(UserRequest userRequest) {
         if(userRepository.findByEmail(userRequest.email()).isPresent()){
-            throw new RuntimeException("Email already in use");
+            throw new EmailAlreadyUsedException();
         }
 
         User user = userMapper.toEntity(userRequest);
 
         user.setPassword(passwordEncoder.encode(userRequest.password()));
 
-        user.setPermissions(Set.of(UserPermissions.USER_READ, UserPermissions.USER_WRITE, UserPermissions.USER_EDIT, UserPermissions.USER_DELETE));
+        user.setPermissions(Set.of(UserPermissions.USER_READ));
         return UserMapper.toDTO(userRepository.save(user));
     }
     @Override

@@ -3,6 +3,7 @@ package ro.mycode.car.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ro.mycode.car.dtos.CarRequest;
 import ro.mycode.car.dtos.CarResponse;
@@ -25,31 +26,42 @@ public class CarController {
 
 
     @GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('car:read')")
     ResponseEntity<List<CarResponse>> getAllCars(){
         return ResponseEntity.status(HttpStatus.OK).body(carQueryService.findAllCars());
 
     }
     @PostMapping("/add")
+    @PreAuthorize("hasAnyAuthority('car:write')")
     ResponseEntity<CarResponse> addCar(@RequestBody CarRequest carRequest){
       CarResponse carResponse=  carCommandService.addCar(carRequest);
         return ResponseEntity.status(HttpStatus.OK).body(carResponse);
 
     }
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('car:delete')")
       ResponseEntity<Void> deleteCar(@PathVariable long id ){
       carCommandService.deleteCar(Long.parseLong(id+""));
       return ResponseEntity.status(HttpStatus.OK).body(null);
 
     }
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasAnyAuthority('car:edit')")
     ResponseEntity<CarResponse> updateCar(@PathVariable long id , @Valid @RequestBody CarRequest carRequest){
         CarResponse c= carCommandService.updateCar(id, carRequest);
         return ResponseEntity.status(HttpStatus.OK).body(c);
 
     }
     @PatchMapping("/patch/{id}")
+    @PreAuthorize("hasAnyAuthority('car:edit')")
     ResponseEntity<CarResponse>  patchCar(@PathVariable long id , @Valid @RequestBody CarRequest carRequest){
         CarResponse carReponse=carCommandService.updateCar(id,carRequest);
         return ResponseEntity.status(HttpStatus.OK).body(carReponse);
     }
+
+
+
+
+
+
 }

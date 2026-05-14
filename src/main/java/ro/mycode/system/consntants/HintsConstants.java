@@ -8,5 +8,6 @@ public class HintsConstants {
 
     public static final String USER_ALREADY_EXISTS_HINT_MESSAGE="Try another name";
     public static final String USER_NOT_FOUND_HINT_MESSAGE="Try another name";
+    public static final String EMAIL_ALREADY_USED_HINT_MESSAGE="Change Email";
 
 }
