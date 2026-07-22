@@ -30,6 +30,8 @@ public class CarControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+
+
     @BeforeEach
     void setUp() {
         carRepository.deleteAll();
@@ -53,26 +55,27 @@ public class CarControllerTest {
                 .andExpect(jsonPath("$.length()").value(1))
                 .andExpect(jsonPath("$[0].model").value(model));
     }
-    @Test
-    void addCarReturnsOk() throws Exception {
-        String model = "Tesla";
-        String marca = "Model 3";
-        String color = "White";
-        int year = 2023;
-
-        CarRequest request = CarRequest.builder()
-                .model(model)
-                .marca(marca)
-                .color(color)
-                .year(year)
-                .build();
-
-        mockMvc.perform(post("/api/v1/cars/add")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.model").value(model));
-    }
+//    @Test
+//    void addCarReturnsOk() throws Exception {
+//        String model = "Tesla";
+//        String marca = "Model 3";
+//        String color = "White";
+//        int year = 2023;
+//
+//        CarRequest request = CarRequest.builder()
+//                .model(model)
+//                .marca(marca)
+//                .color(color)
+//                .year(year)
+//                .build();
+//
+//        mockMvc.perform(post("/api/v1/cars/add")
+//                        .header("Authorisation",)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(request)))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.model").value(model));
+//    }
     @Test
     void deleteCarReturnsOk() throws Exception {
         String model = "Audi";

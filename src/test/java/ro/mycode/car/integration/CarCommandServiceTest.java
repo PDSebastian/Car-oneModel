@@ -1,11 +1,14 @@
 package ro.mycode.car.integration;
 
+import org.hamcrest.core.StringEndsWith;
 import org.junit.jupiter.api.Test;
 import org.springdoc.core.customizers.ParameterObjectNamingStrategyCustomizer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import ro.mycode.car.dtos.CarRequest;
@@ -16,10 +19,17 @@ import ro.mycode.car.exceptions.InvalidYearException;
 import ro.mycode.car.model.Car;
 import ro.mycode.car.repository.CarRepository;
 import ro.mycode.car.service.CarCommandService;
+import ro.mycode.config.UserPermissions;
+import ro.mycode.user.model.PermissionTemplates;
+import ro.mycode.user.model.User;
+import ro.mycode.user.repository.UserRepository;
 
 
+import java.security.Permission;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.delete;
+import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @SpringBootTest
@@ -33,9 +43,35 @@ public class CarCommandServiceTest {
     CarRepository carRepository;
 
 
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+    @Autowired
+    UserRepository userRepository;
+
+
+
+
+
     @Test
     @Transactional
     public void createCarReturnOk() throws Exception {
+        Long userId = 1L;
+        String firstName = "John";
+        String lastName = "Doe";
+        String email="johnDoe@gmail.com";
+
+          User user=User.builder()
+                  .id(userId)
+                  .lastName(firstName)
+                  .firstName(lastName)
+                  .email(email)
+                  .permissions(PermissionTemplates.USER_DEFAULT)
+                  .password(passwordEncoder.encode("parola"))
+                  .build();
+
+          userRepository.save(user);
+
         CarRequest carRequest =CarRequest.builder()
                 .marca("www")
                 .model("aaa")
@@ -46,6 +82,8 @@ public class CarCommandServiceTest {
         CarResponse carResponse=carCommandService.addCar(carRequest);
         assertEquals("dwdw","www",carResponse.getMarca());
         assertEquals("dwdw","aaa",carResponse.getModel());
+
+
 
 
 

@@ -25,6 +25,7 @@ public class CarController {
 
 
     @GetMapping("/all")
+
     ResponseEntity<List<CarResponse>> getAllCars(){
         return ResponseEntity.status(HttpStatus.OK).body(carQueryService.findAllCars());
 

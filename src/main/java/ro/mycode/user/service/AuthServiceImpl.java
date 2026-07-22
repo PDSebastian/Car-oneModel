@@ -18,11 +18,11 @@ import java.util.Set;
 
 @Component
 public class AuthServiceImpl implements AuthService {
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
-    private final AuthenticationManager authenticationManager;
-    private final JWTTokenProvider jwtTokenProvider;
-    private final PasswordEncoder passwordEncoder;
+        private final UserRepository userRepository;
+        private final UserMapper userMapper;
+        private final AuthenticationManager authenticationManager;
+        private final JWTTokenProvider jwtTokenProvider;
+        private final PasswordEncoder passwordEncoder;
 
     public AuthServiceImpl(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder,AuthenticationManager authenticationManager,JWTTokenProvider jwtTokenProvider) {
         this.userRepository = userRepository;
