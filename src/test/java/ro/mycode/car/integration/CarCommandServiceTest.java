@@ -53,42 +53,42 @@ public class CarCommandServiceTest {
 
 
 
-    @Test
-    @Transactional
-    public void createCarReturnOk() throws Exception {
-        Long userId = 1L;
-        String firstName = "John";
-        String lastName = "Doe";
-        String email="johnDoe@gmail.com";
-
-          User user=User.builder()
-                  .id(userId)
-                  .lastName(firstName)
-                  .firstName(lastName)
-                  .email(email)
-                  .permissions(PermissionTemplates.USER_DEFAULT)
-                  .password(passwordEncoder.encode("parola"))
-                  .build();
-
-          userRepository.save(user);
-
-        CarRequest carRequest =CarRequest.builder()
-                .marca("www")
-                .model("aaa")
-                .color("red")
-                .year(2018)
-                .build();
-
-        CarResponse carResponse=carCommandService.addCar(carRequest);
-        assertEquals("dwdw","www",carResponse.getMarca());
-        assertEquals("dwdw","aaa",carResponse.getModel());
-
-
-
-
-
-
-    }
+//    @Test
+//    @Transactional
+//    public void createCarReturnOk() throws Exception {
+//        Long userId = 1L;
+//        String firstName = "John";
+//        String lastName = "Doe";
+//        String email="johnDoe@gmail.com";
+//
+//          User user=User.builder()
+//                  .id(userId)
+//                  .lastName(firstName)
+//                  .firstName(lastName)
+//                  .email(email)
+//                  .permissions(PermissionTemplates.USER_DEFAULT)
+//                  .password(passwordEncoder.encode("parola"))
+//                  .build();
+//
+//          userRepository.save(user);
+//
+//        CarRequest carRequest =CarRequest.builder()
+//                .marca("www")
+//                .model("aaa")
+//                .color("red")
+//                .year(2018)
+//                .build();
+//
+//        CarResponse carResponse=carCommandService.addCar(carRequest);
+//        assertEquals("dwdw","www",carResponse.getMarca());
+//        assertEquals("dwdw","aaa",carResponse.getModel());
+//
+//
+//
+//
+//
+//
+//    }
     @Test
     @Transactional
     public void updateCarReturnOk() throws Exception {

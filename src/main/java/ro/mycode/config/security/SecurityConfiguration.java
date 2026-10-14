@@ -49,23 +49,31 @@ public class SecurityConfiguration {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationConverter jwtAuthenticationConverter) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> {})
-                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers(SecurityConstants.PUBLIC_URLS).permitAll()
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        .anyRequest().authenticated())
-                .authenticationProvider(authenticationProvider())
-                .exceptionHandling(exception -> exception
-                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                        .accessDeniedHandler(jwtAccessDeniedHandler))
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
-        return http.build();
-    }
+  @Bean
+public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationConverter jwtAuthenticationConverter) throws Exception {
+    http.csrf(AbstractHttpConfigurer::disable)
+        .cors(cors -> {})
+        .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
+        .authorizeHttpRequests(authorize -> authorize
+            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            .requestMatchers(SecurityConstants.PUBLIC_URLS).permitAll()
+            .requestMatchers(
+                "/v3/api-docs",
+                "/v3/api-docs/**",
+                "/swagger-ui/**",
+                "/swagger-ui.html",
+                "/swagger-resources/**",
+                "/webjars/**"
+            ).permitAll()
+            .anyRequest().authenticated())
+        .authenticationProvider(authenticationProvider())
+        .exceptionHandling(exception -> exception
+            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            .accessDeniedHandler(jwtAccessDeniedHandler))
+        .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
+
+    return http.build();
+}
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
