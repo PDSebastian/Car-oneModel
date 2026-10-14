@@ -117,8 +117,4 @@ jobs:
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
-          payload: |
-            {
-              "text": "${{ job.status == 'success' && ':white_check_mark:' || ':x:' }} *${{ github.repository }} · update-compose · ${{ job.status }} · compose pe `${{ env.TAG }}`*\n<${{ env.RUN_URL }}|Vezi run-ul>"
-            }
-            
+          payload: '{"text": "${{ job.status == 'success' && ':white_check_mark:' || ':x:' }} *${{ github.repository }} · job · ${{ job.status }}* <${{ env.RUN_URL }}|Vezi run-ul>"}'
